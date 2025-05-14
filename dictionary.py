@@ -1,4 +1,6 @@
-'''This is the dictionary of all moves for each category and a blitz mode dictionary that contains roughly all moves regardless of category. Can be modified when new moves are added.'''
+'''This is the dictionary of all moves for each category and a blitz mode 
+dictionary that contains roughly all moves regardless of category. 
+Can be modified when new moves are added.'''
 
 moves = {
     # OFFENSE
