@@ -45,12 +45,14 @@ Follow the prompts in the terminal to choose your training path. The app will sp
 
 ## Project Structure
 
+```bash
 jiu-jitsu-coach-cli/
 ├── README.md
 ├── blitz_mode.py
 ├── coach.py
 ├── dictionary.py
 └── selections.py
+```
 
 ---
 
