@@ -1,4 +1,5 @@
-'''This will be the mode setting that will ask for offense or defense or both, then out of ALL of those skill options, 
+'''This will be the blitz setting that will ask for offense or defense or both, 
+then out of ALL of those skill options, 
 randomly select one and repeat until manually exited from code loop'''
 
 from dictionary import blitz_moves
