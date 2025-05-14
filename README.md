@@ -39,6 +39,10 @@ pip install pyttsx3
 
 ## Running the App
 
+```bash
+python coach.py
+```
+
 Follow the prompts in the terminal to choose your training path. The app will speak the drills using TTS. It will loop forever unless manually stopped using 'ctrl+c'
 
 ---
