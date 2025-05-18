@@ -1,81 +1,59 @@
-'''This is the main program that will be run and loop over the moves and speak them out.'''
-
+'''
+This is the main file to run that will simulate a coach
+calling out different moves for the user to drill, based
+on their selections
+'''
 import random
 import time
 import pyttsx3
-import selections
-import blitz_mode
+from built_drill_tree import drill_tree
 
+is_blitz = False
+engine = pyttsx3.init()
+rate = engine.getProperty('rate')
+voices = engine.getProperty('voices')
+engine.setProperty('rate', rate-30)
+engine.setProperty('voice', voices[14].id)
 
-def main():
+def run_training(node):
     '''
-    Main function that takes original mode decisions, 
-    then executes the speech to text for the randomly selected move calls
+    Traverses through drill tree prompting the user
+    with decisions based on that node level.
+    Exits once a leaf is reached, indicating drills reached. 
     '''
-    
-    while True:
+    global is_blitz
+    while not node.is_leaf():
+        print(node.prompt)
+        options = list(node.options.keys())
+        for i, option in enumerate(options, start=1):
+            print(f'{i}. {option}')
         try:
-            mode = int(input('Select training mode:\n\n1. Specialized\t\t2. BLITZ\n'))
-            if mode not in [1, 2]:
-                print('Input a valid choice')
-            else: 
-                break
-        except ValueError:
-            pass
+            choice = int(input('Select option: ')) - 1      # Validation check until valid input
+            if options[choice] == 'BLITZ':
+                is_blitz = True
+        except (ValueError, IndexError):
+            print('Enter a valid input.\n')
+            continue
+        node = node.options[options[choice]]    # Returns str option from options list to use as key in .options dict
 
-    if mode == 1:   # If Specialized training mode was chosen
-        moves_list = selections.finalized_selection()
 
-        engine = pyttsx3.init()
-        rate = engine.getProperty('rate')
-        voices = engine.getProperty('voices')
-        engine.setProperty('rate', rate-30)
-        engine.setProperty('voice', voices[14].id)
-        engine.say('Loading training simulation')
-        engine.runAndWait()
+    if is_blitz:
+        blitz_encouragement = [
+            'You\'re doing great! Keep training',
+            'Another rep, come on!',
+            'Strive to be the best you can be!',
+            'Do it again, but better',
+            'Anything within your capacity will not make you grow!'
+        ]
 
-        i = 0
-        while i < 7:  
-            if i > 0:
-                engine.say('Reset.')
-                engine.runAndWait()
-
-            time.sleep(5)
-            engine.say(random.choice(moves_list))
-            engine.runAndWait()
-       
-            time.sleep(11)
-            i += 1
-       
-        engine.say('Training simulation complete.')
-        engine.runAndWait()
-
-    elif mode == 2:   # If BLITZ training mode was chosen
-        blitz_list = blitz_mode.finalized_blitz()
-
-        blitz_encouragement = ['Focus',
-                            'This is where you are right now, focus your attention here', 
-                            'Success is a few simple disciplines practiced every day',
-                            'He who waits receives nothing',
-                            'Again',
-                            'Build yourself',
-                            'Push harder',
-                            'Make yourself a weapon',
-                            'No half-assing here',
-                            'I know you got more in you, prove it']
-
-        engine = pyttsx3.init()
-        rate = engine.getProperty('rate')
-        voices = engine.getProperty('voices')
         engine.setProperty('rate', rate-25)
-        engine.setProperty('voice', voices[14].id)
         engine.say('BLITZ MODE ENGAGED')
         engine.runAndWait()
         time.sleep(5)
 
         i = 0
         while True:   # Will intentionally loop forever until user enters "ctrl+c" to exit out of program
-            engine.say(random.choice(blitz_list))
+            engine.say(random.choice(node.drills))
             engine.runAndWait()
             time.sleep(11)
            
@@ -89,7 +67,25 @@ def main():
             time.sleep(4)
             i += 1
 
-       
+
+    engine.say('Loading training simulation')   # Specialized mode, runs for 8 reps
+    engine.runAndWait()
+    time.sleep(5)
+    i = 0
+    while i < 7:
+        if i > 0:
+            engine.say('Reset.')
+            engine.runAndWait()
+
+        time.sleep(5)
+        engine.say(random.choice(node.drills))
+        engine.runAndWait()
+    
+        time.sleep(11)
+        i += 1
+    
+    engine.say('Training simulation complete.')
+    engine.runAndWait()
 
 if __name__ == '__main__':
-    main()
+    run_training(drill_tree)
