@@ -69,7 +69,7 @@ jiu-jitsu-coach-cli/
 
 ## Why I Built This
 
-I'm combining my interest in programming with my background in jiu jitsu. I find it hard to have a structured training regimen unless you are present in a jiu jitsu class. So, if you're like me and are busy with work and overall life, it can be very challenging to make most classes. This project came about as a means of 'simulating' a personal jiu jitsu coach that will call out moves to you while you are practicing at home. It is intened to be used with a training partner or a grappling dummy to drill the moves being spoken. Ultimately, this is to serve as a training tool that can be used anywhere, anytime, to continue training when away from a structured class/gym. 
+I'm combining my interest in programming with my background in jiu jitsu. I find it hard to have a structured training regimen unless you are present in a jiu jitsu class. So, if you're like me and are busy with work and overall life, it can be very challenging to make most classes. This project came about as a means of 'simulating' a personal jiu jitsu coach that will call out moves to you while you are practicing at home. It is intended to be used with a training partner or a grappling dummy to drill the moves being spoken. Ultimately, this is to serve as a training tool that can be used anywhere, anytime, to continue training when away from a structured class/gym. 
 
 ---
 
